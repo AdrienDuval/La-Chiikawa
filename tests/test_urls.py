@@ -1,7 +1,6 @@
 from chiikawa.urls import canonical_url
 
 
-
 def test_removes_tracking_parameters():
     print(canonical_url("https://www.lemonde.fr/article.html?utm_source=rss&xtor=RSS-3208"))
     url = "https://www.lemonde.fr/article.html?utm_source=rss&xtor=RSS-3208"
