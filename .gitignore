@@ -8,3 +8,4 @@ TASK_OVERVIEW.md
 __pycache__/
 *.pyc
 .venv/
+.pytest_cache/
