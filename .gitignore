@@ -1,0 +1,10 @@
+# Personal notes from the private course slides: keep them out of this public repo
+TASK_OVERVIEW.md
+
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
