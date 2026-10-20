@@ -14,6 +14,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+  
+  garage:
+    image: dxflrs/garage:v2.2.0
+    environment:
+      GARAGE_RPC_SECRET: ${GARAGE_RPC_SECRET}
+    ports:
+      - "3900:3900"
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+      - garage-meta:/var/lib/garage/meta
+      - garage-data:/var/lib/garage/data
 volumes:
       pgdata:
+      garage-meta:
+      garage-data:
