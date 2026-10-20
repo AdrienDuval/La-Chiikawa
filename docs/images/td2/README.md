@@ -12,3 +12,4 @@ Key evidence for the report (19/10/2026): one working result and, where useful, 
 | CI | `3-ci/03-ci-run2-red-broken-test.png` | ❌ a failing test blocks the build (broken on purpose) |
 | Docker | `4-docker/01-docker-build-and-run.png` | ✅ image builds (cached layers) and runs locally |
 | Docker | `4-docker/02-ci-checks-then-docker-green.png` | ✅ CI: `checks` then `docker` job, both green |
+| Compose | `5-compose/01-init-garage-script-idempotent.png` | ✅ Garage setup script re-run safely: nothing recreated, 4 buckets ready |
