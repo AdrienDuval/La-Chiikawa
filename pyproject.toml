@@ -6,7 +6,11 @@ authors = [
     { name = "Adrien Duval", email = "adrienmbah19@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "feedparser>=6.0.14",
+    "httpx>=0.28.1",
+    "protego>=0.7.0",
+]
 
 [project.scripts]
 chiikawa = "chiikawa:main"
