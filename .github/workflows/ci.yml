@@ -24,3 +24,16 @@ jobs:
 
       - name: Tests
         run: uv run pytest
+
+
+  docker:
+    runs-on: ubuntu-24.04
+    needs: checks
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: build the image
+        run: docker build -t chiikawa .
+
+      - name: Run the image
+        run: docker run --rm chiikawa
