@@ -1,9 +1,12 @@
+from datetime import UTC, datetime
 from urllib.parse import urlsplit
 from xml.etree import ElementTree
 
 import feedparser
 import httpx
 from protego import Protego
+
+from chiikawa.sources import Source, load_sources
 
 NS = {
     "sm": "http://www.sitemaps.org/schemas/sitemap/0.9",
@@ -82,3 +85,37 @@ def polite_get(url: str) -> bytes:
 def fetch_sitemap(url: str) -> list[dict]:
     """Download one news sitemap (politely) and keep only the allowed fields."""
     return parse_news_sitemap(polite_get(url))
+
+def collect_source(source: Source) -> list[dict]:
+    """Read every access of one source and tag each item with where it came from."""
+    fetched_at = datetime.now(UTC).isoformat()
+    items = []
+    if source.rss_url:
+        for item in fetch_rss(source.rss_url):
+            items.append({**item, "source": source.name, "access": "rss", "fetched_at": fetched_at})
+    if source.sitemap_url:
+        for item in fetch_sitemap(source.sitemap_url):
+            items.append({**item, "source": source.name, "access": "sitemap", "fetched_at": fetched_at})
+    return items
+
+
+def collect_all(sources: list[Source]) -> tuple[list[dict], dict[str, str]]:
+    """Collect every source. A failing source is reported, never fatal."""
+    all_items, report = [], {}
+    for source in sources:
+        try:
+            items = collect_source(source)
+            all_items.extend(items)
+            report[source.name] = f"ok ({len(items)} items)"
+        except NotAllowedError:
+            report[source.name] = "skipped: robots.txt forbids it"
+        except Exception as error:
+            report[source.name] = f"FAILED: {type(error).__name__}: {error}"
+    return all_items, report
+
+
+if __name__ == "__main__":
+    items, report = collect_all(load_sources())
+    for name, status in report.items():
+        print(f"{name:30} {status}")
+    print(f"\nTotal: {len(items)} items")
