@@ -3,6 +3,13 @@
 > M2Ops project "La gazette" · M2 Data Engineering & AI · Efrei 2026-2027
 > Version 1, 19 October 2026 · Adrien Chuembou Mbah, Quand Dat Lee
 
+<p align="center">
+  <img src="images/mascots/chiikawa.webp" alt="Chiikawa" height="120">
+  <img src="images/mascots/hachiware.webp" alt="Hachiware" height="120">
+  <img src="images/mascots/usagi.webp" alt="Usagi" height="120">
+</p>
+<p align="center"><sub>Chiikawa, Hachiware and Usagi — characters © Nagano, used only as the project mascot.</sub></p>
+
 ## The need
 
 Every morning at 7:00, *La Chiikawa* publishes the main topics covered since the day before by French regional (PQR) and national (PQN) newspapers: what the topics are, which newspapers talk about them, and links to read more.

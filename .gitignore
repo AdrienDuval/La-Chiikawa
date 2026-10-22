@@ -9,3 +9,7 @@ __pycache__/
 *.pyc
 .venv/
 .pytest_cache/
+# Model runs and editions
+output/
+mlflow.db
+mlruns/
