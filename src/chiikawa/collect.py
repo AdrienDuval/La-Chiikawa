@@ -86,6 +86,7 @@ def fetch_sitemap(url: str) -> list[dict]:
     """Download one news sitemap (politely) and keep only the allowed fields."""
     return parse_news_sitemap(polite_get(url))
 
+
 def collect_source(source: Source) -> list[dict]:
     """Read every access of one source and tag each item with where it came from."""
     fetched_at = datetime.now(UTC).isoformat()
@@ -95,7 +96,9 @@ def collect_source(source: Source) -> list[dict]:
             items.append({**item, "source": source.name, "access": "rss", "fetched_at": fetched_at})
     if source.sitemap_url:
         for item in fetch_sitemap(source.sitemap_url):
-            items.append({**item, "source": source.name, "access": "sitemap", "fetched_at": fetched_at})
+            items.append(
+                {**item, "source": source.name, "access": "sitemap", "fetched_at": fetched_at}
+            )
     return items
 
 
