@@ -7,6 +7,7 @@ import httpx
 from protego import Protego
 
 from chiikawa.sources import Source, load_sources
+from chiikawa.storage import bronze_path, connect, write_parquet
 
 NS = {
     "sm": "http://www.sitemaps.org/schemas/sitemap/0.9",
@@ -118,7 +119,15 @@ def collect_all(sources: list[Source]) -> tuple[list[dict], dict[str, str]]:
 
 
 if __name__ == "__main__":
+    run_id = datetime.now(UTC).strftime("%Y-%m-%dT%H")
     items, report = collect_all(load_sources())
+
+    con = connect()
+    for name in report:
+        source_items = [item for item in items if item["source"] == name]
+        if source_items:
+            write_parquet(con, source_items, bronze_path(name, run_id))
+
     for name, status in report.items():
         print(f"{name:30} {status}")
     print(f"\nTotal: {len(items)} items")
